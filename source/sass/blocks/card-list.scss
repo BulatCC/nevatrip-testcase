@@ -1,0 +1,9 @@
+.card-list {
+    display: grid;
+    gap: 3rem;
+
+    @include vp-768 {
+        gap: 6rem;
+        font-size: 1.8rem;
+    }
+}

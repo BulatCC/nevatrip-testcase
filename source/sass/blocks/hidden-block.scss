@@ -1,0 +1,33 @@
+.hidden-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    position: absolute;
+    padding: 0.5rem;
+    right: 0;
+    top: 6.5rem;
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.3rem 1.5rem rgba(58, 58, 58, 0.1);
+    background-color: #FFFFFF;
+    transition: opacity 0.3s;
+
+    @include vp-768 {
+        right: -0.5rem;
+        top: 4rem;
+    }
+    
+    &.active {
+        z-index: 1;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.hidden-button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}

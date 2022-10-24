@@ -1,0 +1,7 @@
+.main {
+    padding-top: 2.6rem;
+
+    @include vp-768 {
+        padding-top: 6.7rem;
+    }
+}

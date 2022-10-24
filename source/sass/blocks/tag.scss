@@ -1,0 +1,30 @@
+.tag {
+    display: inline-block;
+    align-self: baseline;
+    padding: 0.2rem 1.3rem 0.1rem 1.3rem;
+    color: #343434;
+    background-color: #D9E8FF;
+    border-radius: 1.1rem;
+    text-align: center;
+    font-size: 1.4rem;
+
+    @include vp-768 {
+        padding-right: 1.6rem;
+        padding-left: 1.6rem;
+        font-size: 1.6rem;
+    }
+
+    &.active {
+        filter: drop-shadow(0 0.2rem 0.2rem rgba(0, 0, 0, 0.25));
+        background-color: #6BA6FF;
+        color: #FFFFFF;
+    }
+
+    & + .tag {
+        margin-left: 0.8rem;
+
+        @include vp-768 {
+            margin-left: 0.6rem;
+        }
+    }
+}

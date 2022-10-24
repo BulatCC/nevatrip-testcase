@@ -1,0 +1,19 @@
+.button {
+    padding: 1.1rem;
+    border: 1px solid #CBA500;
+    background-color: #FED74B;
+    border-radius: 2rem;
+    width: 16.5rem;
+    text-align: center;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 0.8;
+    } 
+    
+    @include vp-768 {
+        border: none;
+        border-radius: 2.3rem;
+        width: 18.7rem;
+    }
+}

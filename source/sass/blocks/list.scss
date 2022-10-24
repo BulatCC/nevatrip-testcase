@@ -1,0 +1,24 @@
+.list {
+    display: grid;
+    gap: 1.1rem;
+
+    @include vp-768 {
+        gap: 1rem;
+    }
+}
+
+.list__item {
+    position: relative;
+    padding-left: 3.6rem;
+    color: #4B4B4B;
+
+    @include vp-768 {
+        padding-left: 3rem;
+    }
+}
+
+.list__icon {
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+}

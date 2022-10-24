@@ -75,8 +75,6 @@ class TicketChoice {
         </select>`;
     }
 
-
-
     renderTime(route) {
         switch (route) {
             case AtoB:
@@ -191,9 +189,9 @@ class TicketChoice {
     }
 
     createMessage() {
-        return `You have choosen <strong>${this.choosenValues.ticketsNumber}</strong>  tickets by the route ${this.choosenValues.route}, cost ${this.calculatedPrice}$.
+        return `You have choosen ${this.choosenValues.ticketsNumber} tickets by the route ${this.choosenValues.route}, cost ${this.calculatedPrice}$.
         This trip will take you ${this.getTripDuration()}. 
-        The ship is leaving at ${this.formatTime(this.choosenValues[AtoB]) || this.formatTime(this.choosenValues[BtoA])} ${this.choosenValues.route === AtoBthenBtoA ?`, and arrive at ${this.formatTime(this.choosenValues[BtoA])}.` : '' } `
+        The ship is leaving at ${this.formatTime(this.choosenValues[AtoB]) || this.formatTime(this.choosenValues[BtoA])} ${this.choosenValues.route === AtoBthenBtoA ?`, and arrive at ${this.formatTime(this.choosenValues[BtoA])}` : ''}.`
     }
 
     setListners() {

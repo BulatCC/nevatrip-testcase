@@ -586,7 +586,7 @@ h6 {
 }
 
 .main {
-  padding-top: 2.6rem;
+  padding: 2.6rem 0;
 }
 
 .card-list {
@@ -821,7 +821,7 @@ h6 {
   }
 
   .main {
-    padding-top: 6.7rem;
+    padding: 6.7rem 0;
   }
 
   .card-list {

@@ -59,10 +59,12 @@ class TicketChoice {
         this.renderRoutes();
     }
 
+    // форматируем время с учетом часового пояса
     formatTime(time) {
        return time && dayjs(time).add(this.timeZoneOffset, 'hour').format('HH:mm');
     }
 
+    // шаблон селекта
     selectTemplate(id, name, data, dataId = '') {
         return `<div class="select-container" data-${dataId}>
             <label for="${id}" style="margin-right: 1rem;">${name}</label>
@@ -75,6 +77,7 @@ class TicketChoice {
         </select>`;
     }
 
+    // рендерит селект
     renderTime(route) {
         switch (route) {
             case AtoB:
@@ -86,6 +89,7 @@ class TicketChoice {
         }
     }
 
+    // работает с селектом выбора маршрута
     addRouteChoice(evt) {
         for (let value in this.choosenValues) {
             this.choosenValues[value] = null;
@@ -101,6 +105,7 @@ class TicketChoice {
         }
     }
 
+    // работает с селектом выбора времени и направления
     addTimeChoice(evt) {
         if (!evt) return
         switch (this.choosenValues.route) {
@@ -126,6 +131,7 @@ class TicketChoice {
         }
     }
 
+    // убирает не подходящие по времени значения обратного пути
     wayBackFilterTime() {
         return this.timeData.BtoA.filter(({ value }) => {
             const timePlusTripDuration = dayjs(value).subtract(this.tripDuration, 'minute');
@@ -133,19 +139,23 @@ class TicketChoice {
         });
     }
 
+    // рендерит маршруты
     renderRoutes() {
         this.routeContainer.insertAdjacentHTML('beforeend', this.selectTemplate('route', 'Choose-route', this.routeData));
     }
 
+    // рендерит селект из A в B
     renderAtoBSelect() {
         !this.isAtoBrendered && this.timeContainerAtoB.insertAdjacentHTML('beforeend', this.selectTemplate(`time-to-${AtoB}`, `Choose time ${AtoB}`, this.timeData.AtoB, 'a-to-b'));
         this.isAtoBrendered = true;
     }
 
+    // рендерит селект из B в A
     renderBtoASelect(timeData = this.timeData.AtoB) {
         this.timeContainerBtoA.insertAdjacentHTML('beforeend', this.selectTemplate(`time-to-${BtoA}`, `Choose time ${BtoA}`, timeData, 'b-to-o'));
     }
 
+    // проверяте можно ли показывать поле выбора количества билетов и кнопку расчета
     calculationPrepare() {
         const conditionOne = this.choosenValues.route === AtoB && this.choosenValues[AtoB] || this.choosenValues.route === BtoA && this.choosenValues[BtoA];
         const conditionTwo = this.choosenValues.route === AtoBthenBtoA && this.choosenValues[AtoB] && this.choosenValues[BtoA];
@@ -158,6 +168,7 @@ class TicketChoice {
         }
     }
 
+    // расчет цены
     calculate() {
         this.choosenValues.ticketsNumber = this.input.value;
         if (!this.choosenValues.ticketsNumber) {
@@ -173,6 +184,7 @@ class TicketChoice {
         }
     }
 
+    // расчет длительности путешествия
     getTripDuration() {
         const getDuration = (timeInminutes) => {
             const hours = Math.floor(timeInminutes / 60);
@@ -183,17 +195,19 @@ class TicketChoice {
             return `${this.tripDuration} minutes`;
         }
         if (this.choosenValues.route === AtoBthenBtoA) {
-            const diff = dayjs(this.choosenValues[BtoA]).diff(this.choosenValues[AtoB], 'minute')
+            const diff = dayjs(this.choosenValues[BtoA]).diff(this.choosenValues[AtoB], 'minute');
             return getDuration(diff);
         }
     }
 
+    // сообщение о выбранных билетах
     createMessage() {
         return `You have choosen ${this.choosenValues.ticketsNumber} tickets by the route ${this.choosenValues.route}, cost ${this.calculatedPrice}$.
         This trip will take you ${this.getTripDuration()}. 
         The ship is leaving at ${this.formatTime(this.choosenValues[AtoB]) || this.formatTime(this.choosenValues[BtoA])} ${this.choosenValues.route === AtoBthenBtoA ?`, and arrive at ${this.formatTime(this.choosenValues[BtoA])}` : ''}.`
     }
 
+    // добавляет обработчики событий
     setListners() {
         this.timeContainerAtoB.addEventListener('change', (evt) => {
             this.addTimeChoice(evt);

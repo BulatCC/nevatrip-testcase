@@ -18,6 +18,7 @@ const hideNotFited = () => {
         }
 
         if (compareWidth()) {
+            // создаем контейнер для скрытых елементов
             const hiddenBlockTemplate = `<div class="hidden-block" data-hidden-block></div>`;
             container.insertAdjacentHTML('beforeend', hiddenBlockTemplate);
             const hiddenBlock = container.querySelector('[data-hidden-block]');

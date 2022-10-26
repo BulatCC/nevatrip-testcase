@@ -61,7 +61,7 @@ class TicketChoice {
 
     // форматируем время с учетом часового пояса
     formatTime(time) {
-       return time && dayjs(time).add(this.timeZoneOffset, 'hour').format('HH:mm');
+        return time && dayjs(time).add(this.timeZoneOffset, 'hour').format('HH:mm');
     }
 
     // шаблон селекта
@@ -111,12 +111,8 @@ class TicketChoice {
         switch (this.choosenValues.route) {
             case AtoB:
                 return this.choosenValues[AtoB] = evt.target.value;
-        }
-        switch (this.choosenValues.route) {
             case BtoA:
                 return this.choosenValues[BtoA] = evt.target.value;
-        }
-        switch (this.choosenValues.route) {
             case AtoBthenBtoA:
                 if (evt.target.closest('[data-a-to-b]')) {
                     this.choosenValues[AtoB] = evt.target.value;
@@ -162,7 +158,7 @@ class TicketChoice {
         if (conditionOne || conditionTwo) {
             this.isReadyForCalculate = true;
             this.inputContainer.style.visibility = 'visible';
-        } else {    
+        } else {
             this.isReadyForCalculate = false;
             this.inputContainer.style.visibility = 'hidden';
         }
@@ -176,10 +172,10 @@ class TicketChoice {
             return setTimeout(() => this.tooltip.style.opacity = '0', 3000);
         }
 
-        if (this.choosenValues[AtoB] || this.choosenValues[BtoA]) {
+        if (this.choosenValues.route === AtoB || this.choosenValues.route === BtoA ) {
             this.calculatedPrice = this.choosenValues.ticketsNumber * this.tripPriceOneDirection;
         }
-        if (this.choosenValues[BtoA]) {
+        if (this.choosenValues.route === AtoBthenBtoA) {
             this.calculatedPrice = this.choosenValues.ticketsNumber * this.roundtripPrice;
         }
     }
@@ -204,7 +200,7 @@ class TicketChoice {
     createMessage() {
         return `You have choosen ${this.choosenValues.ticketsNumber} tickets by the route ${this.choosenValues.route}, cost ${this.calculatedPrice}$.
         This trip will take you ${this.getTripDuration()}. 
-        The ship is leaving at ${this.formatTime(this.choosenValues[AtoB]) || this.formatTime(this.choosenValues[BtoA])} ${this.choosenValues.route === AtoBthenBtoA ?`, and arrive at ${this.formatTime(this.choosenValues[BtoA])}` : ''}.`
+        The ship is leaving at ${this.formatTime(this.choosenValues[AtoB]) || this.formatTime(this.choosenValues[BtoA])} ${this.choosenValues.route === AtoBthenBtoA ? `, and arrive at ${this.formatTime(this.choosenValues[BtoA])}` : ''}.`
     }
 
     // добавляет обработчики событий
